@@ -1,0 +1,97 @@
+.mainContainer {
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    padding: 10px;
+    color: white;
+    height: 31px;
+  }
+  
+  .mainContainer input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+  
+  .mainContainer button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 80px;
+    margin-right: 200px;
+  }
+  
+  .mainContainer button:hover {
+    background-color: #0056b3;
+  }
+  
+  .mainContainer a {
+    color: white;
+    text-decoration: none;
+    margin-left: 10px;
+  }
+  
+  .mainContainer a:hover {
+    text-decoration: underline;
+  }
+
+  .nav{
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 50px;
+  }
+
+  .nav:hover {
+    background-color: #0056b3;
+  }
+  
+  .nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 10px;
+  }
+  
+  .nav a:hover {
+    text-decoration: underline;
+  }
+
+  .navCreate{
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 200px;
+  }
+
+  .navCreate:hover {
+    background-color: #0056b3;
+  }
+  
+  .navCreate a {
+    color: white;
+    text-decoration: none;
+    margin-left: 10px;
+  }
+  
+  .navCreate a:hover {
+    text-decoration: underline;
+  }
+
+  .containH2 {
+    margin: 0;
+    margin-right: 130px;
+    margin-left: 50px;
+  }

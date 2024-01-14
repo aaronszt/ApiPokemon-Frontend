@@ -1,0 +1,75 @@
+.container{
+  background-color: transparent;
+  border-radius: 10px;
+  box-shadow: 10px 10px 10px rgba(53, 50, 189, 0.5);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 1px solid #4f5164;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.image{
+  max-height: 200px;
+  max-width: 200px;
+}
+
+.typesContainer {
+  display: flex;
+  gap: 10px;
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-10px);
+  }
+}
+
+.sparkle {
+  position: relative;
+}
+
+.sparkle::before,
+.sparkle::after {
+  content: '\2605';
+  position: absolute;
+  color: #13110a;
+  opacity: 0;
+  animation: sparkle 1s infinite;
+  z-index: 1;
+  font-size: 20px;
+}
+
+.sparkle::before {
+  left: -20px;
+  top: -10px;
+}
+
+.sparkle::after {
+  right: -20px;
+  bottom: -10px;
+}
+
+.buttonClose {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.closeIcon {
+  font-size: 24px;
+  color: rgb(143, 247, 222);
+}

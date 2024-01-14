@@ -1,0 +1,70 @@
+.home{
+    background: url(../../img_pokemon/fondoHome.jpg);
+    background-size: 100% 100% ;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.containSelect {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.selectTypes {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 5px;
+}
+
+.selectTypes:hover {
+  background-color: #0056b3;
+}
+
+  .containSelectAll {
+    display: flex;
+    justify-content: flex-start;
+    position: fixed;
+    top: 51px;
+    left: 119px;
+    height: 43px;
+    position: absolute;
+  }
+
+  .containSelectLists {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 5px;
+  }
+  
+  .containSelectLists:hover {
+    background-color: #0056b3;
+    cursor: pointer;
+  }
+
+  .button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 5px;
+  }
+  
+  .button:hover {
+    background-color: #0056b3;
+  }
