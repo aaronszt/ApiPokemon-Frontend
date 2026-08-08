@@ -2,7 +2,7 @@ import {GET_POKE, GET_TYPE, GET_NAME, GET_DETAIL, SORT_POKEMON, SORT_POKEMONATK,
 import axios from "axios";
 
 export const getPoke = () => {
-    const endpoint = '/pokemons';
+    const endpoint = 'pokemons';
     return async (dispatch) => {
          const { data } = await axios(endpoint)
          return dispatch({
@@ -13,7 +13,7 @@ export const getPoke = () => {
 }
 
 export const getTypes = () => {
-   const endpoint = '/types';
+   const endpoint = 'types';
    return async (dispatch) => {
       const { data } = await axios (endpoint);
       return dispatch({
@@ -25,7 +25,7 @@ export const getTypes = () => {
 
 export const getName = (name) => {
   return function (dispatch) {
-    axios(`/pokemons/name?name=${name}`)
+    axios(`pokemons/name/${encodeURIComponent(name)}`)
       .then(({ data }) => dispatch({ type: GET_NAME, payload: data }))
       .catch((error) => {
         if (error.response && error.response.status === 404) {
@@ -39,11 +39,11 @@ export const getName = (name) => {
 
 export const getDetails = (id) => {
   return function (dispatch) {
-      axios (`/pokemons/${id}`)
+      axios (`pokemons/${id}`)
       .then (({data})=> dispatch (
           {type: GET_DETAIL, payload:data}))
           .catch((error) => {
-              if (error.response && error.response.status === 500) {
+              if (error.response && (error.response.status === 404 || error.response.status === 500)) {
                 alert("No matching Pokemon found");
               } else {
                 console.error("An error occurred:", error);
@@ -82,13 +82,16 @@ export const getDetails = (id) => {
  export const createPoke = (payload) => {
    return async (dispatch) => {
      try {
-       const { data } = await axios.post("/pokemons", payload);
+       const { data } = await axios.post("pokemons", payload);
+       alert("Pokemon created successfully!");
+       dispatch(getPoke());
        return dispatch({
          type: POST_POKE,
          payload: data,
        });
      } catch (error) {
        console.log(error);
+       alert("Error creating Pokemon");
      }
    };
  };

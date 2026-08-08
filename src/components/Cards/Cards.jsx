@@ -9,22 +9,24 @@ const Cards = () => {
   const itemsPerPage = 12;
   const [currentPage, setCurrentPage] = useState(1);
 
+  const safePokemons = Array.isArray(pokemons) ? pokemons : [];
+  const totalPages = Math.ceil(safePokemons.length / itemsPerPage) || 1;
 
-  const indexOfLastItem = currentPage * itemsPerPage;
+  const validCurrentPage = currentPage > totalPages ? 1 : currentPage;
+
+  const indexOfLastItem = validCurrentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentPokemons = pokemons.slice(indexOfFirstItem, indexOfLastItem);
-
-  const totalPages = Math.ceil(pokemons.length / itemsPerPage);
+  const currentPokemons = safePokemons.slice(indexOfFirstItem, indexOfLastItem);
 
   const goToNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
+    if (validCurrentPage < totalPages) {
+      setCurrentPage(validCurrentPage + 1);
     }
   };
   
   const goToPrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+    if (validCurrentPage > 1) {
+      setCurrentPage(validCurrentPage - 1);
     }
   };
 

@@ -13,13 +13,13 @@ const Detail = () => {
 
     useEffect(()=>{
         dispatch(getDetails(id))
-    },[dispatch])
+    },[dispatch, id])
     
     return (
         <div className={style.background}>
             <div className={style.container}>
                 <div className={style.card}>
-                    <img src={image} alt="imgagePoke"/>
+                    <img src={image} alt={name || "pokemon"}/>
                     <h4>NAME: {name}</h4>
                     <h4>HP: {hp}</h4>
                     <h4>ATTACK: {attack}</h4>
@@ -27,10 +27,10 @@ const Detail = () => {
                     <h4>SPEED: {speed}</h4>
                     <h4>TYPES: 
                     {
-                    types?.map(type =>{
+                    types?.map((type, index) =>{
                             return(
                                 type!== null?
-                            <span>{` ${type} `}</span>
+                            <span key={index}>{` ${type} `}</span>
                             : ""
                          )
                         })

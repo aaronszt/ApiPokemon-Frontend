@@ -2,8 +2,7 @@ import Cards from "../Cards/Cards";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector  } from "react-redux";
 import style from './Home.module.css';
-import { sortAZ, sortAttack, getPoke, filterByTypes, getTypes, cleanState } from "../../redux/actions";
-import { orderByOrigin } from "../../redux/actions";
+import { sortAZ, sortAttack, getPoke, filterByTypes, getTypes, orderByOrigin } from "../../redux/actions";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -11,7 +10,6 @@ const Home = () => {
     const [attackOrder, setAttackOrder] = useState('HI');
     const [originOrder, setOriginOrder] = useState('DB');
     const [selectedType, setSelectedType] = useState("");
-    const [clean, setClean] = useState();
     const types = useSelector((state) => state.types);
 
     useEffect(() => {

@@ -25,9 +25,9 @@ const reducer = (state = initialState, {type, payload}) => {
             };
 
         case GET_NAME:
-            return{
+            return {
                 ...state,
-                pokemons: payload,
+                pokemons: Array.isArray(payload) ? payload : (payload ? [payload] : []),
             };
 
         case GET_DETAIL:
@@ -37,51 +37,29 @@ const reducer = (state = initialState, {type, payload}) => {
             };
 
         case SORT_POKEMON:
+            const toSort = [...state.pokemons];
             const sorted =
-
-            payload === "ASC"
-            ? state.pokemons.sort((a, b) => {
-              if (a.name > b.name) return 1;
-              if (b.name > a.name) return -1;
-              return 0;
-            })
-
-            : payload === "DSC"
-            ? state.pokemons.sort((a, b) => {
-                console.log(state.pokemons);
-              if (a.name > b.name) return -1;
-              if (a.name > b.name) return 1;
-              return 0;
-            })
-
-            : state.pokemons;
+                payload === "ASC"
+                    ? toSort.sort((a, b) => (a.name || '').localeCompare(b.name || ''))
+                    : payload === "DSC"
+                    ? toSort.sort((a, b) => (b.name || '').localeCompare(a.name || ''))
+                    : toSort;
             return {
                 ...state,
                 pokemons: sorted,
             };
 
         case SORT_POKEMONATK:
-            const falsePoke = [...state.pokemonsBackUp];
+            const toSortAtk = [...state.pokemons];
             const sortATK =
-
-            payload === "LOW"
-            ? state.pokemons.sort((a, b) => {
-                if (a.attack > b.attack) return 1;
-                if (b.attack > a.attack) return -1;
-                return 0;
-            })
-
-            : payload === "HI"
-            ? state.pokemons.sort((a, b) => {
-              if (a.attack > b.attack) return -1;
-              if (a.attack > b.attack) return 1;
-              return 0;
-            })
-
-            : falsePoke;
+                payload === "LOW"
+                    ? toSortAtk.sort((a, b) => (a.attack || 0) - (b.attack || 0))
+                    : payload === "HI"
+                    ? toSortAtk.sort((a, b) => (b.attack || 0) - (a.attack || 0))
+                    : [...state.pokemonsBackUp];
             return {
-            ...state,
-            pokemons: sortATK,
+                ...state,
+                pokemons: sortATK,
             };
         
             case ORDER_BY_ORIGIN:

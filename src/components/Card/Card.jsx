@@ -2,21 +2,18 @@ import style from './Card.module.css';
 import { NavLink } from 'react-router-dom';
 import { closeCard } from "../../redux/actions";
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
 
 const Card = ({ name, image, types, id }) => {
-  const [cardClose, setCardClose] = useState();
   const dispatch = useDispatch();
 
   const deleteCard = () => {
     const pokemonDelete = id;
-    setCardClose(pokemonDelete);
     dispatch(closeCard(pokemonDelete));
   };
   
   return (
     <div className={`${style.container} ${style.sparkle}`}>
-      <img className={style.image} src={image} alt="image" />
+      <img className={style.image} src={image} alt={name || "pokemon"} />
       <div className={`${style['sparkle::additional-star']} ${style.star1}`} />
       <div className={`${style['sparkle::additional-star']} ${style.star2}`} />
       <div className={`${style['sparkle::additional-star']} ${style.star3}`} />

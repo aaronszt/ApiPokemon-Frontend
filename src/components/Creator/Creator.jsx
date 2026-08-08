@@ -32,7 +32,7 @@ const Creator = () => {
     const isValidImage = /^(https?:\/\/)?\S+\.(jpg|jpeg|png)$/;
     
     const validate = (input) => {
-        const validateNameDuplicated = poke.some(pokemon => pokemon.name.includes(input.name));
+        const validateNameDuplicated = Array.isArray(poke) && poke.some(pokemon => pokemon.name?.toLowerCase() === input.name?.toLowerCase());
 
             let errors = {};
             if (!noEmpty.test(input.name) || !validateName.test(input.name) || input.name.length < 3) {
@@ -60,7 +60,7 @@ const Creator = () => {
                 errors.weight = "Number required. Higher than one and less than thousand";
             }
             if (!isValidImage.test(input.image)) {
-                errors.image = "URL required";
+                errors.image = "URL required (must end with .jpg, .jpeg, or .png)";
             }
 
             return errors;
@@ -97,18 +97,26 @@ const Creator = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (
-            !errors.name &&
-            !errors.hp &&
-            !errors.attack &&
-            !errors.defense &&
-            !errors.speed &&
-            !errors.height &&
-            !errors.weight &&
-            !errors.image 
-        ) {
+        const currentErrors = validate(input);
+        if (Object.keys(currentErrors).length === 0) {
+            const typeIds = input.types.map(typeName => {
+                const found = types.find(t => t.name === typeName);
+                return found ? found.id : null;
+            }).filter(id => id !== null);
 
-            dispatch(createPoke(input));
+            const payload = {
+                name: input.name,
+                hp: parseInt(input.hp, 10),
+                attack: parseInt(input.attack, 10),
+                defense: parseInt(input.defense, 10),
+                speed: parseInt(input.speed, 10),
+                height: parseInt(input.height, 10),
+                weight: parseInt(input.weight, 10),
+                typeIds: typeIds,
+                image: input.image
+            };
+
+            dispatch(createPoke(payload));
             setInput({
                 name: '', 
                 hp: '', 
@@ -120,8 +128,9 @@ const Creator = () => {
                 types: [],
                 image: ''
             });
+            setErrors({});
         } else {
-            alert('Error. Check the form');
+            alert('Error. Check the form fields.');
         }
     }
 
@@ -132,8 +141,6 @@ const Creator = () => {
         })
     }
 
-
-
     return ( 
         <div >
             <form className={style.formContainer} onSubmit={e => {handleSubmit(e)}}>
@@ -141,28 +148,28 @@ const Creator = () => {
                     <div >
                         <label>Name:</label>
                         <input type="text" value={input.name} name='name' onChange={e => {handleChange(e)}} placeholder="Name" />
-                        <p className={errors.name && style.form}>{errors.name}</p>
+                        <p className={errors.name ? style.form : ''}>{errors.name}</p>
                         <label>HP:</label>
                         <input type="number" value={input.hp} name='hp' onChange={e => {handleChange(e)}} placeholder="HP" />
-                        <p className={errors.hp && style.form}>{errors.hp}</p>
+                        <p className={errors.hp ? style.form : ''}>{errors.hp}</p>
                         <label>Attack:</label>
                         <input type="number" value={input.attack} name='attack' onChange={e => {handleChange(e)}} placeholder="Attack" />
-                        <p className={errors.attack && style.form}>{errors.attack}</p>
+                        <p className={errors.attack ? style.form : ''}>{errors.attack}</p>
                         <label>Defense:</label>
                         <input type="number" value={input.defense} name='defense' onChange={e => {handleChange(e)}} placeholder="Defense" />
-                        <p className={errors.defense && style.form}>{errors.defense}</p>
+                        <p className={errors.defense ? style.form : ''}>{errors.defense}</p>
                         <label>Speed:</label>
                         <input type="number" value={input.speed} name='speed' onChange={e => {handleChange(e)}} placeholder="Speed" />
-                        <p className={errors.speed && style.form}>{errors.speed}</p>
+                        <p className={errors.speed ? style.form : ''}>{errors.speed}</p>
                         <label>Height:</label>
                         <input type="number" value={input.height} name='height' onChange={e => {handleChange(e)}} placeholder="Height" />
-                        <p className={errors.height && style.form}>{errors.height}</p>
+                        <p className={errors.height ? style.form : ''}>{errors.height}</p>
                         <label>Weight:</label>
                         <input type="number" value={input.weight} name='weight' onChange={e => {handleChange(e)}} placeholder="Weight" />
-                        <p className={errors.weight && style.form}>{errors.weight}</p>
+                        <p className={errors.weight ? style.form : ''}>{errors.weight}</p>
                         <label>Image:</label>
                         <input type="text" value={input.image} name='image' onChange={e => {handleChange(e)}} placeholder="URL Image..." />
-                        <p className={errors.image && style.form}>{errors.image}</p>
+                        <p className={errors.image ? style.form : ''}>{errors.image}</p>
                     </div>
                     <select onChange={e => {handleSelect(e)}}>
                         <option>Select type</option>
@@ -177,9 +184,9 @@ const Creator = () => {
                             {
                                 input.types.map(e => {
                                     return (
-                                        <div className={style.divTypeClose}  key={e}>
-                                            <p className={style.pClose} >{e}</p>
-                                            <button  onClick={() => {handleDelete(e)}} >x</button>
+                                        <div className={style.divTypeClose} key={e}>
+                                            <p className={style.pClose}>{e}</p>
+                                            <button type="button" onClick={() => {handleDelete(e)}}>x</button>
                                         </div>
                                     )
                                 })
