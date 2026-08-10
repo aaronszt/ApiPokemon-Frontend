@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 import Detail from './components/Detail/Detail';
 import Creator from './components/Creator/Creator';
 import axios from 'axios';
-axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'https://localhost:7198/api/';
+axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'https://pokemon-api-abg6.onrender.com/api/';
 
 function App() {
   const location = useLocation()
