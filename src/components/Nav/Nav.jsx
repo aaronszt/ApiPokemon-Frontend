@@ -26,7 +26,7 @@ const Nav = () => {
             <input type="text" onChange={handlerName} value = {name} onKeyDown={enter}/>
             <button onClick={onSearch}>SEARCH</button>
             <Link to='https://www.linkedin.com/in/aaron-sztychmasjter-218307266/'>
-                <h2 className={style.containH2}>AARON SZTYCHMASJTER-40B</h2>
+                <h2 className={style.containH2}>AARON SZTYCHMASJTER</h2>
             </Link>
             <NavLink className={style.nav} to = '/home'>HOME</NavLink>
             <NavLink className={style.navCreate} to = '/create'>FORM/CREATE</NavLink>
